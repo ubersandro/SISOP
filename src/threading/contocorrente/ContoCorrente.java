@@ -1,18 +1,18 @@
-package it.unical.sisop.contocorrente;
+package threading.contocorrente;
 
 public abstract class ContoCorrente {
 
-	protected int deposito;
+    protected int deposito;
 
-	public ContoCorrente(int depositoIniziale) {
-		this.deposito = depositoIniziale;
-	}
+    public ContoCorrente(int depositoIniziale) {
+        this.deposito = depositoIniziale;
+    }
 
-	public abstract void deposita(int importo);
+    public abstract void deposita(int importo);
 
-	public abstract void preleva(int importo);
-	
-	public int getDeposito() {
-		return deposito;
-	}
+    public abstract void preleva(int importo);
+
+    public int getDeposito() {
+        return deposito;
+    }
 }
