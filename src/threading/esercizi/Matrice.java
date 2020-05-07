@@ -8,7 +8,6 @@ public abstract class Matrice{
 
     public abstract void decrementa(RC opzione, int indice);
 
-
    /* public String toString(){
         StringBuilder sb = new StringBuilder(200);
         for(int i=0; i<m.length; i++) {
