@@ -37,9 +37,9 @@ public class Semaforo {
 
 
     public void V() {
-        counter++;
-        if (counter > 0) {
-            try {
+        if (++counter > 0) {
+            if(queue.size()>0){
+                try {
                 queueSemaphore.acquire();
                 Thread c;
 
@@ -47,15 +47,16 @@ public class Semaforo {
                 else c = queue.remove(new Random().nextInt(MAX_PERMITS));//RANDOM, si poteva usare size di queue
 
                 c.notify();
-            } catch (InterruptedException e) {
+            } catch (InterruptedException e) {}
+                queueSemaphore.release();
             }
-            queueSemaphore.release();
+
         }//if
     }//V
 
     private class Test extends Thread {
         String stampa;
-        Semaforo s = new Semaforo(1, true);
+        Semaforo s = new Semaforo(1);
 
         public Test(String s) {
             stampa = s;
@@ -76,9 +77,8 @@ public class Semaforo {
 
     }
 
-    public static void main(String[] args) {
-
-        Thread one = new Thread("ONE");
+    public static void main(String[] args) throws InterruptedException {
+        /*Thread one = new Thread("ONE");
         Thread two = new Thread("TWO");
         Thread three = new Thread("ONE");
         one.start(); two.start(); three.start();
@@ -102,7 +102,24 @@ public class Semaforo {
         a.forEach((t) -> {
             t.interrupt();
         });
-        System.out.println("BYE");
+        System.out.println("BYE");*/
+        Semaforo s = new Semaforo(1, true);
+        Thread t = new Thread(()->{
+            try{
+                s.P();
+            } catch(InterruptedException e ){ e.printStackTrace();}
+            System.out.println("ORCODIO");
+            s.V();
+        });
+        Thread x = new Thread(()->{
+            try{
+                s.P();
+            } catch(InterruptedException e ){ e.printStackTrace();}
+            System.out.println("E la madonna");
+            s.V();
+        });
+        t.start(); x.start();
+        t.join(); x.join();
     }
 
 }
