@@ -7,7 +7,7 @@ enum State {HUNGRY, EATING, THINKING }
 public class NFilosofi {
 
     public static void main(String[] args) {
-        int N = 3;
+        int N = 5;
         Tavolo t = new Tavolo(N);
         Thread[] a = new ThreadFilosofo[N];
         for(int i=0; i<N; ++i ){
@@ -42,7 +42,7 @@ class Tavolo{
     private int n;
     public Tavolo(int n){
         bacchetta = new Semaphore[n];
-        for(int i=0; i<n; ++i) bacchetta[i]= new Semaphore(0);
+        for(int i=0; i<n; ++i) bacchetta[i] = new Semaphore(0);
         stato = new State[n];
         for(int i=0; i<n; ++i) stato[i] = State.THINKING;
         this.n = n;
@@ -66,11 +66,20 @@ class Tavolo{
     }
 
     private void test(int id) throws InterruptedException{
-        if(stato[(id+1)%n]!=State.EATING && stato[(id+5)%n]!=State.EATING && stato[id]==State.HUNGRY){
+        if(stato[(id+1)%n]!=State.EATING && stato[(id-1+n)%n]!=State.EATING && stato[id]==State.HUNGRY){
             stato[id] = State.EATING;
             //System.out.printf("Filosofo %d mangia\n", id);
             bacchetta[id].release();//per segnalare che ha mangiato
             System.out.printf("Il filosofo %d sta mangiando...\n", id );
+            stampaTavolo();
         }//if
+    }
+
+
+    private void stampaTavolo(){
+        for(int i=0; i<n; i++){
+            System.out.print((stato[i]==State.EATING)? 1:0);
+        }
+        System.out.println();
     }
 }
