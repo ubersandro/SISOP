@@ -24,7 +24,7 @@ public class TavoloLock extends Tavolo{
 					possoMangiare[(i+1)%NUM_FILOSOFI].await();
 			}
 			bacchette[i] = true;
-			bacchette[(i+1)%NUM_FILOSOFI] = true;
+			bacchette[ ( i+1 ) %NUM_FILOSOFI] = true;
 		}finally{
 			lock.unlock();
 		}

@@ -59,7 +59,6 @@ public class SalaLock extends Sala{
 			Sala s = new SalaLock(5);
 			s.test(30);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

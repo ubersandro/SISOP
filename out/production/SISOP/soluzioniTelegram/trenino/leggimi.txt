@@ -1,0 +1,4 @@
+le tracce erano 2
+una con 10 cabine e l'altra con 8 cabine
+la soluzione è riferita a quella di 8 cabine ma si può adattare semplificandola alla traccia di 10 cabine
+grazie di tutto ad Antonio Marino per il contributo.
