@@ -14,7 +14,7 @@ public class BancaLC extends Banca {
 
     public BancaLC(int numeroClienti, int numeroSportelli) {
         super(numeroClienti, numeroSportelli);
-        l = new ReentrantLock();
+        l = new ReentrantLock(true);
         prelievoSportello = new Condition[numeroSportelli];
         for (int i = 0; i < numeroSportelli; ++i) prelievoSportello[i] = l.newCondition();
         codeSportello = new ArrayList<>(numeroSportelli);
@@ -27,7 +27,7 @@ public class BancaLC extends Banca {
         l.lock();
         try {
             codeSportello.get(sportello).addLast(Thread.currentThread());//enqueue
-            while (!codeSportello.get(sportello).getFirst().equals(Thread.currentThread()))
+            while (!eIlMioTurno(sportello))
                 prelievoSportello[sportello].await();
             System.out.println("Provo a prelevare... " + Thread.currentThread().getId());
             if (denaroResiduo[sportello] < somma) {
@@ -41,7 +41,6 @@ public class BancaLC extends Banca {
         } finally {
             l.unlock();
         }
-
         return true;
     }//
 
@@ -50,21 +49,20 @@ public class BancaLC extends Banca {
     }//eilMioTurno
 
 
-    public void rifornisci() {
+    public void rifornisci(int sportello) {
         l.lock();
         try {
-            int sportello = sportelloDaRifornire();
             denaroResiduo[sportello] = sommaMax;
             System.out.println("Rifornimento sportello " + sportello);
             Thread.sleep(50);
         } catch (InterruptedException e) {
         } finally {
-            System.out.println("Ho rifornito lo sportello.");
             l.unlock();
         }
     }
 
-    private int sportelloDaRifornire() {
+    @Override
+    public int sportelloDaRifornire() {
         l.lock();
         int x = 0;
         try {

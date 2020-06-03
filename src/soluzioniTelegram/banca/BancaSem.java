@@ -2,7 +2,7 @@ package soluzioniTelegram.banca;
 
 import java.util.concurrent.Semaphore;
 
-public class BancaSem extends Banca {
+public abstract class BancaSem extends Banca {
     Semaphore[] sportelli;
     Semaphore mutex;
 
@@ -19,6 +19,11 @@ public class BancaSem extends Banca {
     }
 
     @Override
+    public void rifornisci(int sportello) {
+
+    }
+
+
     public void rifornisci() {
 
     }

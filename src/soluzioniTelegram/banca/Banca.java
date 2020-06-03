@@ -14,8 +14,8 @@ public abstract class Banca {
     }//builder
 
     public abstract boolean prelievo(int sportello, int denaro);
-
-    public abstract void  rifornisci();
+    public abstract int sportelloDaRifornire();
+    public abstract void  rifornisci(int sportello);
 
     public int getNumeroSportelli(){
         return  numeroSportelli;

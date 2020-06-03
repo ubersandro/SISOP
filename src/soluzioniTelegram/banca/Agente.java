@@ -8,10 +8,12 @@ public class Agente extends Thread{
     }
 
     public void run(){
+        int x=0;
         try {
             while(true) {
-                Thread.sleep(10);
-                b.rifornisci();
+                x = b.sportelloDaRifornire();
+                Thread.sleep(100);
+                b.rifornisci(x);
             }
         }catch(InterruptedException e){}
     }
