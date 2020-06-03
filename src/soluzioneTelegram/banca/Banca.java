@@ -12,7 +12,7 @@ package soluzioneTelegram.banca;
  */
 public abstract class Banca {
 
-	protected static final int NUM_SPORTELLI = 30;
+	protected static final int NUM_SPORTELLI = 4;
 	protected Sportello[] sportelli = new Sportello[NUM_SPORTELLI];
 	protected int[] denaroSportello = new int[NUM_SPORTELLI];
 

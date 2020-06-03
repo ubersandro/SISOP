@@ -31,11 +31,14 @@ public class Cliente extends Thread {
 			while (true) {
 				idSportello = scegliSportello();
 				raggiungiSportello();
+				System.out.printf("Thread %d prova a prelevare allo sportello %d\n", Thread.currentThread().getId(),idSportello);
 				denaro = sedeCentrale.getSportello(idSportello).preleva(
 						quantita());
 				if (denaro > 0) {
-					Thread.sleep(denaro);
+					System.out.printf("Thread %d HA PRELEVATO allo sportello %d\n", Thread.currentThread().getId(),idSportello);
+					Thread.sleep(denaro*5);
 				}
+				else System.out.printf("Thread %d NON può prelevare allo sportello %d\n", Thread.currentThread().getId(),idSportello);
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
