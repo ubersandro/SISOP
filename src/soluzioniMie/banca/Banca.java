@@ -1,4 +1,4 @@
-package soluzioniTelegram.banca;
+package soluzioniMie.banca;
 
 public abstract class Banca {
     /*protected */int numeroClienti;

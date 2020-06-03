@@ -1,4 +1,4 @@
-package trenino;
+package soluzioniMie.banca.trenino;
 
 import java.util.concurrent.locks.*;
 /*

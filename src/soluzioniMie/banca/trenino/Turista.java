@@ -1,4 +1,4 @@
-package trenino;
+package soluzioniMie.banca.trenino;
 
 public class Turista extends Thread{
     Trenino t;

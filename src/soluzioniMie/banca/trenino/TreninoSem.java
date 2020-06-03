@@ -1,6 +1,5 @@
-package trenino;
+package soluzioniMie.banca.trenino;
 
-import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
 
 /*

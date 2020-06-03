@@ -1,4 +1,4 @@
-package soluzioniTelegram.banca;
+package soluzioniMie.banca;
 
 public class Agente extends Thread{
     Banca b;

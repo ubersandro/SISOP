@@ -1,4 +1,4 @@
-package soluzioniTelegram.banca;
+package soluzioniMie.banca;
 
 import java.util.Random;
 
