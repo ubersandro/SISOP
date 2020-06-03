@@ -1,4 +1,4 @@
-package soluzioniMie.banca.trenino;
+package soluzioniMie.trenino;
 
 import java.util.concurrent.Semaphore;
 
