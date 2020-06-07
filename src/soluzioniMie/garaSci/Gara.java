@@ -38,7 +38,7 @@ public abstract class Gara {
 
     protected abstract boolean prossimo();
 
-    protected abstract void aggiornaClassifica(int id, int tempo);
+
 
     protected void stampaClassifica() {
         classifica.forEach((tempo, lista) -> {

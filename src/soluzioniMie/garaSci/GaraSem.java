@@ -52,14 +52,7 @@ public class GaraSem extends Gara {
         return posizione;
     }
 
-    @Override
-    protected void aggiornaClassifica(int mioId, int tempo){
-        try{
-            mutex.acquire();
 
-            mutex.release();
-        }catch (InterruptedException e){}
-    }
     @Override
     protected boolean prossimo() {
         try {
