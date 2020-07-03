@@ -4,7 +4,6 @@ import java.util.*;
 
 public abstract class Sala {
     protected final static int CAPIENZA = 30, CANALI = 8;
-//    LinkedList [] coda = new LinkedList[CANALI];
     protected int spettatoriAttuali, canaleAttuale;
     protected int [] personeInAttesa = new int[CANALI];
 
@@ -21,13 +20,14 @@ public abstract class Sala {
                 maxPersone = personeInAttesa[i];
                 canale = i;
             }
-        return canale;
+        return canale + 1; //un numero tra 1 e 8
     }
     protected abstract void entra(int canale) throws InterruptedException;
     protected abstract void esci(int canale) throws InterruptedException;
     protected abstract void cambiaCanale();
 
     public void test(int persone){
-        while(persone-->0) (new Thread(new Persona(this))).start();
+        int c = 0;
+        while(persone-->0) (new Thread(new Persona(this, ++c))).start();
     }
 }

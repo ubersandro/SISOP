@@ -23,7 +23,7 @@ public abstract class MemoriaCondivisa {
 		  for (int i = 0; i < numScrittori; i++) {
 		    scrittori[i] = new Scrittore(this);
 		  }
-		  System.out.println("Test della classe " + getClass().getSimpleName());
+		  System.out.println("threading.esercizi.Test della classe " + getClass().getSimpleName());
 		  for (int i = 0; i < numLettori; i++) {
 		    new Thread(lettori[i]).start();
 		  }

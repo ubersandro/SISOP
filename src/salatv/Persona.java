@@ -5,32 +5,34 @@ import java.util.Random;
 public class Persona implements Runnable{
     Sala s;
     Random r = new Random();
-    private static final int MAX = 300, MIN = 3;
+    private static final int MAX = 800, MIN = 80;
+    private int id;
 
-    public Persona(Sala s){
+    public Persona(Sala s, int id){
         this.s = s;
+        this.id = id;
     }
 
 
     private int scegliCanale(){
-        return r.nextInt(s.getCanali()) + 1;
+        return r.nextInt(s.getCanali()) + 1;//un numero casuale tra 1 e 8
     }
 
     private void guardaTV() throws InterruptedException {
-        Thread.sleep(r.nextInt(MAX-MIN +1) + MIN );
+        Thread.sleep(r.nextInt(MAX-MIN ) + MIN);
     }
 
     public void run(){
-        int canale = scegliCanale();
         try{
-            while(true) {
+            //while(true) {
+                int canale = scegliCanale();
                 s.entra(canale);
-                System.out.println("Sono entrato per guardare il canale "+canale);
+                System.out.println("Sono entrato per guardare il canale "+canale + " THREAD: "+ id);
                 guardaTV();
-                System.out.println("Ho finito di guardare il canale " + canale + " e me ne vado...");
+                System.out.println("Ho finito di guardare il canale " + canale + " e me ne vado... "+ "THREAD: "+ id);
                 s.esci(canale);
-                System.out.println("Sono uscito");
-            }
+                System.out.println("Sono uscito "+ "THREAD: "+ id);
+            //}
         }catch(InterruptedException e){}
     }
 }

@@ -1,5 +1,6 @@
 package salatv;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -22,25 +23,24 @@ public class SalaLC extends Sala {
     protected void entra(int canale) throws InterruptedException {
         l.lock();
         try{
-            codaIngresso.addFirst(Thread.currentThread());
-            while(!(postiOccupati<CAPIENZA && codaIngresso.getFirst()== Thread.currentThread()))
+            codaIngresso.addLast(Thread.currentThread());
+            while(!(postiOccupati<CAPIENZA && codaIngresso.getFirst() == Thread.currentThread()))
                 possoEntrare.await();
             codaIngresso.removeFirst(); //sono entrato
-            postiOccupati++; //ho occupato un posto in sala
             if(canaleAttuale == canale){
                 spettatoriAttuali++;
-                possoEntrare.signalAll();
                 return;
             }
             if(spettatoriAttuali == 0){
                 canaleAttuale = canale;
                 spettatoriAttuali++;
-                possoEntrare.signalAll();
                 return;
             }
-            while(!(canaleAttuale == canale)) coda[canale].await();
+            personeInAttesa[canale -1]++;
+            while(!(canaleAttuale == canale)) coda[canale - 1].await();
+            personeInAttesa[canale-1]--;
             spettatoriAttuali++;
-            possoEntrare.signalAll();
+
         }finally{
             l.unlock();// posso mettere alcune operazioni qui
         }
@@ -50,20 +50,29 @@ public class SalaLC extends Sala {
     protected void esci(int canale) throws InterruptedException {
         l.lock();
         try{
-            spettatoriAttuali--;
-            postiOccupati--;
+            --spettatoriAttuali;
             if(spettatoriAttuali == 0){
-                canaleAttuale = canalePiuRichiesto();
+                cambiaCanale() ;
             }
-            coda[canaleAttuale].signalAll();
+            postiOccupati--;
             possoEntrare.signalAll();
         }finally{
             l.unlock();
         }
     }
 
+    public static  void main(String ... args){
+        new SalaLC().test(200);
+    }
+
     @Override
     protected void cambiaCanale() {
-
+        l.lock();
+        try{
+            canaleAttuale = canalePiuRichiesto(); //tra 1 e 8
+            coda[canaleAttuale - 1].signalAll();
+        }finally{
+            l.unlock();
+        }
     }
 }

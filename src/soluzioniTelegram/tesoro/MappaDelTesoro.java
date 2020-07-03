@@ -39,7 +39,7 @@ public abstract class MappaDelTesoro {
             throws InterruptedException;
 
     protected void test(int numCeratori) throws InterruptedException {
-        System.out.println("Test della classe " + getClass().getSimpleName());
+        System.out.println("threading.esercizi.Test della classe " + getClass().getSimpleName());
         for (int i = 0; i < numCeratori; i++) {
             new Thread(new Cercatore(this)).start();
         }

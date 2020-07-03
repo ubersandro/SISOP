@@ -30,9 +30,9 @@ public class SalaSem extends Sala {
             return;
         }
         if (canaleAttuale != canale && spettatoriAttuali > 0) {
-            personeInAttesa[canale]++; //segnalo che sono in attesa
+            personeInAttesa[canale - 1]++; //segnalo che sono in attesa
             mutex.release();//per evitare deadlock
-            coda[canale].acquire(); //mi metto in coda sul canale desiderato
+            coda[canale - 1].acquire(); //mi metto in coda sul canale desiderato
             mutex.acquire();
             spettatoriAttuali++; //quando il canale viene cambiato io posso andare a guardarlo
             mutex.release();
@@ -53,8 +53,12 @@ public class SalaSem extends Sala {
      */
     protected void cambiaCanale(){
         canaleAttuale = canalePiuRichiesto();
-        coda[canaleAttuale].release(personeInAttesa[canaleAttuale]);
-        personeInAttesa[canaleAttuale] = 0;
+        System.out.println("NUOVO CANALE "+canaleAttuale);
+        coda[canaleAttuale -1].release(personeInAttesa[canaleAttuale - 1]);
+        personeInAttesa[canaleAttuale - 1] = 0;
+    }
+    public static  void main(String ... args){
+        new SalaSem().test(300);
     }
 
 }
